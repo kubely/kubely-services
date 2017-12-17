@@ -1,0 +1,1 @@
+{"containers":[{"image":"centos/httpd"}],"name":"httpd","routes":[{"name":"httpd","to":{"kind":"Service","name":"httpd"}}],"services":[{"name":"httpd","portMappings":["8080:80"],"type":"NodePort"}]}

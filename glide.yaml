@@ -1,0 +1,4 @@
+package: github.com/kedge-trial/blockly-kedge
+import:
+- package: github.com/gorilla/mux
+  version: v1.6.0
