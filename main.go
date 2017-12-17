@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os/exec"
@@ -11,7 +10,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/kedge-trial/blockly-kedge/server/controllers"
-	"github.com/kedge-trial/blockly-kedge/server/payload"
 )
 
 const PORT = 9999
@@ -27,64 +25,6 @@ func decodeAndValidate(r *http.Request, v PayloadValidation) error {
 	}
 	defer r.Body.Close()
 	return v.Validate(r)
-}
-
-func Generate(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("------------------received")
-	var gp payload.Generate
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	// we want to decode and validate Thing from request body
-	err := decodeAndValidate(r, &gp)
-	if err != nil {
-		fmt.Println("hello---", err)
-		// send a bad request back to the caller
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write(append([]byte("bad request" + err.Error())))
-		// w.WriteHeader(http.StatusOK)
-		// w.Write([]byte("hello suraj"))
-		return
-	}
-	filepath := "uploads/" + gp.Filename
-	op := RunGenerate(filepath, gp.Data)
-	res := payload.SuccessResponse{Data: string(op)}
-	resBytes, err := json.Marshal(res)
-	if err != nil {
-		log.Println("unable to marshel response", res)
-	}
-	w.Write(resBytes)
-	_ = RunDeploy(filepath)
-	// w.Write(op2)
-	w.Header().Set("Content-Type", "application/json")
-	// w.WriteHeader(http.StatusCreated)
-}
-
-func RunGenerate(filename string, data map[string]interface{}) []byte {
-	databytes, err := json.Marshal(data)
-
-	if err != nil {
-		log.Fatal("Error in marshal", err)
-	}
-
-	err = ioutil.WriteFile(filename, databytes, 0644)
-	if err != nil {
-		log.Fatal("Error in writing file")
-	}
-	cmd := exec.Command("kedge", "generate", "-f", filename)
-
-	op, err := cmd.Output()
-	if err != nil {
-		log.Fatal("Error in reading stdout")
-	}
-	return op
-}
-
-func RunDeploy(filename string) []byte {
-	cmd := exec.Command("kedge", "apply", "-f", filename)
-	op, err := cmd.CombinedOutput()
-	if err != nil {
-		log.Fatal("error in deployment ", err, strings.Join(cmd.Args, " "))
-	}
-	return op
 }
 
 func prebuildChecks() bool {
