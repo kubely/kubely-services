@@ -1,6 +1,16 @@
 # kubely-services
 This repository holds all services needed by Kubely
 
+### build:
+```
+make build
+```
+
+### run server for local development
+```
+make run
+```
+
 ### test:
 
 ```
