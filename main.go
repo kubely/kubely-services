@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
-	"github.com/kedge-trial/blockly-kedge/server/controllers"
+	"github.com/kubely/kubely-services/controllers"
 )
 
 const PORT = 9999
