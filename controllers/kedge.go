@@ -8,7 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/kedge-trial/blockly-kedge/server/kedge"
+	"github.com/kubely/kubely-services/kedge"
 )
 
 type KedgeController struct {

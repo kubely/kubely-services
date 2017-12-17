@@ -40,7 +40,7 @@ func Generate(instances []*Meta) (string, error) {
 	for _, m := range instances {
 		query += fmt.Sprintf(" -f %s ", m.Filepath)
 	}
-	cmdStr := fmt.Sprintf("kedge generate -v -f %s > %s", query, allArtifactsPath)
+	cmdStr := fmt.Sprintf("kedge generate -v %s > %s", query, allArtifactsPath)
 
 	cmd := exec.Command("/bin/sh", "-c", cmdStr)
 	_, err := cmd.Output()

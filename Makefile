@@ -1,3 +1,7 @@
+# install vendors
+install:
+	glide install
+
 # build and start the application
 run: build
 	./bin/server

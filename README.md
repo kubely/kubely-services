@@ -1,6 +1,18 @@
 # kubely-services
 This repository holds all services needed by Kubely
 
+
+## Prerequisites
+1. [glide](https://github.com/Masterminds/glide/releases)
+2. go (>=1.8.4)
+3. make
+
+
+### install:
+```
+make install
+```
+
 ### build:
 ```
 make build
