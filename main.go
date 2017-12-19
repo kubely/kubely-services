@@ -91,7 +91,7 @@ func verifyOC() bool {
 // todos
 // enhance http response structure
 func main() {
-	prebuildChecks()
+	// prebuildChecks()
 	router := mux.NewRouter().StrictSlash(true)
 	sub := router.PathPrefix("/api/v1").Subrouter()
 	sub.Methods("POST").Path("/generate").HandlerFunc(controllers.GenerateDeploy)
